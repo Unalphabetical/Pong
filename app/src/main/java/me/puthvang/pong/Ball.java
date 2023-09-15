@@ -1,5 +1,6 @@
 package me.puthvang.pong;
 
+import android.graphics.Color;
 import android.graphics.RectF;
 
 class Ball {
@@ -13,6 +14,9 @@ class Ball {
     private float mYVelocity;
     private float mBallWidth;
     private float mBallHeight;
+
+    //// This is the color variable for the ball
+    private int color;
 
     // This is the constructor method.
     // It is called when by the code:
@@ -85,35 +89,33 @@ class Ball {
     }
 
     void increaseVelocity(){
+
         // increase the speed by 10%
         mXVelocity = mXVelocity * 1.1f;
         mYVelocity = mYVelocity * 1.1f;
     }
-
 
     // Bounce the ball back based upon
     // whether it hits the left or right hand side
     void batBounce(RectF batPosition){
 
         // Detect center of bat
-        float batCenter = batPosition.left +
-                (batPosition.width() / 2);
+        float batCenter = batPosition.left + (batPosition.width() / 2);
 
         // detect the center of the ball
-        float ballCenter = mRect.left +
-                (mBallWidth / 2);
+        float ballCenter = mRect.left + (mBallWidth / 2);
 
         // Where on the bat did the ball hit?
         float relativeIntersect = (batCenter - ballCenter);
 
         // Pick a bounce direction
-        if(relativeIntersect < 0){
+        if (relativeIntersect < 0) {
             // Go right
             mXVelocity = Math.abs(mXVelocity);
             // Math.abs is a static method that
             // strips any negative values from a value.
             // So -1 becomes 1 and 1 stays as 1
-        }else{
+        } else {
             // Go left
             mXVelocity = -Math.abs(mXVelocity);
         }
@@ -124,4 +126,13 @@ class Ball {
         // the screen
         reverseYVelocity();
     }
+
+    public void setColor(int a, int r, int g, int b) {
+        this.color = Color.argb(a, r, g, b);
+    }
+
+    public int getColor() {
+        return color;
+    }
+
 }

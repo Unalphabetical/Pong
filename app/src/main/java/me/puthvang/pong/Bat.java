@@ -1,5 +1,6 @@
 package me.puthvang.pong;
 
+import android.graphics.Color;
 import android.graphics.RectF;
 
 class Bat {
@@ -13,6 +14,9 @@ class Bat {
     private float mXCoord;
     private float mBatSpeed;
     private int mScreenX;
+
+    //// This is the color variable for the bat
+    private int color;
 
     // These variables are public and final
     // They can be directly accessed by
@@ -97,6 +101,14 @@ class Bat {
         // the previous code in update
         mRect.left = mXCoord;
         mRect.right = mXCoord + mLength;
+    }
+
+    public void setColor(int a, int r, int g, int b) {
+        this.color = Color.argb(a, r, g, b);
+    }
+
+    public int getColor() {
+        return color;
     }
 
 }

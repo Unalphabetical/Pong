@@ -92,6 +92,10 @@ class PongGame extends SurfaceView implements Runnable{
         mBall = new Ball(mScreenX);
         mBat = new Bat(mScreenX, mScreenY);
 
+        //// Sets the color of the ball and bat
+        mBall.setColor(255, 25, 235, 150);
+        mBat.setColor(255, 255, 255, 255);
+
         // Prepare the SoundPool instance
         // Depending upon the version of Android
 
@@ -132,7 +136,7 @@ class PongGame extends SurfaceView implements Runnable{
             mMissID = mSP.load(descriptor, 0);
 
 
-        }catch(IOException e){
+        } catch(IOException e) {
             Log.e("error", "failed to load sound files");
         }
 
@@ -176,7 +180,6 @@ class PongGame extends SurfaceView implements Runnable{
                 // Now the bat and ball are in their new positions
                 // we can see if there have been any collisions
                 detectCollisions();
-
             }
 
             // The movement has been handled and collisions
@@ -253,28 +256,30 @@ class PongGame extends SurfaceView implements Runnable{
 
     // Draw the game objects and the HUD
     void draw() {
+
         if (mOurHolder.getSurface().isValid()) {
             // Lock the canvas (graphics memory) ready to draw
             mCanvas = mOurHolder.lockCanvas();
 
             // Fill the screen with a solid color
-            mCanvas.drawColor(Color.argb
-                    (255, 26, 128, 182));
+            mCanvas.drawColor(Color.argb(255, 26, 128, 182));
 
-            // Choose a color to paint with
-            mPaint.setColor(Color.argb
-                    (255, 255, 255, 255));
-
-            // Draw the bat and ball
+            //// Color the ball and draw the ball
+            mPaint.setColor(mBall.getColor());
             mCanvas.drawRect(mBall.getRect(), mPaint);
+
+            //// Color the bat and draw the bat
+            mPaint.setColor(mBat.getColor());
             mCanvas.drawRect(mBat.getRect(), mPaint);
+
+            //// Color the text
+            mPaint.setColor(Color.argb(255, 255, 255, 255));
 
             // Choose the font size
             mPaint.setTextSize(mFontSize);
 
             // Draw the HUD
-            mCanvas.drawText("Score: " + mScore +
-                            "   Lives: " + mLives,
+            mCanvas.drawText("Score: " + mScore + "   Lives: " + mLives,
                     mFontMargin , mFontSize, mPaint);
 
             if(DEBUGGING){
