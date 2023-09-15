@@ -24,10 +24,10 @@ class Ball {
     // In the PongGame class
     Ball(int screenX){
 
-        // Make the ball square and 1% of screen width
-        // of the screen width
-        mBallWidth = screenX / 100;
-        mBallHeight = screenX / 100;
+        //// The ball is now 2% of the screen width
+        //// because it was a bit too small on 1%
+        mBallWidth = screenX / 50;
+        mBallHeight = screenX / 50;
 
         // Initialize the RectF with 0, 0, 0, 0
         // We do it here because we only want to
