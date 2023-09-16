@@ -24,7 +24,7 @@ public class PongAudio {
     private int mBopID = -1;
     private int mMissID = -1;
 
-    // This is for playing the background music
+    //// This is for playing the background music
 
     private MediaPlayer mediaPlayer;
 
@@ -32,6 +32,8 @@ public class PongAudio {
         this.context = context;
 
         try {
+
+            //// Prepare the media player for the background music
 
             this.mediaPlayer = new MediaPlayer();
             AssetFileDescriptor afd = context.getAssets().openFd("The_Infinite_Race.ogg");
