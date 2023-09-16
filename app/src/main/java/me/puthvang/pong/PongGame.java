@@ -301,6 +301,9 @@ class PongGame extends SurfaceView implements Runnable{
         try {
             // Stop the thread
             mGameThread.join();
+
+            //// Pause the background music
+            pongAudio.bgPause();
         } catch (InterruptedException e) {
             Log.e("Error:", "joining thread");
         }
@@ -317,5 +320,8 @@ class PongGame extends SurfaceView implements Runnable{
 
         // Start the thread
         mGameThread.start();
+
+        //// Unpause the background music
+        pongAudio.bg();
     }
 }
