@@ -229,6 +229,10 @@ class PongGame extends SurfaceView implements Runnable{
             mCanvas.drawText("Score: " + mScore + "   Lives: " + mLives,
                     mFontMargin , mFontSize, mPaint);
 
+            //// Draw the music text
+            mCanvas.drawText("Music: ",
+                    getWidth() - 300, 70, mPaint);
+
             if(DEBUGGING){
                 printDebuggingText();
             }
@@ -303,7 +307,7 @@ class PongGame extends SurfaceView implements Runnable{
             mGameThread.join();
 
             //// Pause the background music
-            pongAudio.bgPause();
+            if (!pongAudio.isBgPaused()) pongAudio.bgPause();
         } catch (InterruptedException e) {
             Log.e("Error:", "joining thread");
         }
@@ -322,6 +326,11 @@ class PongGame extends SurfaceView implements Runnable{
         mGameThread.start();
 
         //// Unpause the background music
-        pongAudio.bg();
+        if (!pongAudio.isBgPaused()) pongAudio.bg();
     }
+
+    public PongAudio getPongAudio() {
+        return this.pongAudio;
+    }
+
 }

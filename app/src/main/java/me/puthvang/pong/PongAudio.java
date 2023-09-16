@@ -28,6 +28,8 @@ public class PongAudio {
 
     private MediaPlayer mediaPlayer;
 
+    private boolean bgPaused = false;
+
     public PongAudio(Context context) {
         this.context = context;
 
@@ -115,6 +117,14 @@ public class PongAudio {
 
     public void bgPause() {
         this.mediaPlayer.pause();
+    }
+
+    public void setBgPaused(boolean bgPaused) {
+        this.bgPaused = bgPaused;
+    }
+
+    public boolean isBgPaused(){
+        return bgPaused;
     }
 
 }
