@@ -35,38 +35,24 @@ public class PongActivity extends Activity {
         this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
 
-        //// This is to create the Toggle Button since the Game View was not
+        //// This builder is to create the Toggle Button more easily
+        //// and make it neater because the Game View was not
         //// made via xml files
 
-        ToggleButton muteBgMusicButton = new ToggleButton(this);
+        ToggleButton muteBgMusicButton = new CustomToggleButtonBuilder(this)
+                .minWidth(0).minHeight(0).minimumWidth(0).minimumHeight(0)
+                .x(width - 75).y(-25)
+                .backgroundColor(Color.TRANSPARENT)
+                .textColor(Color.BLACK)
+                .textOn("\uD83D\uDEAB")
+                .textOff("\uD83C\uDFA7︎")
+                .checked(false)
+                .layoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+                .build();
 
-        muteBgMusicButton.setMinWidth(0);
-        muteBgMusicButton.setMinHeight(0);
-        muteBgMusicButton.setMinimumWidth(0);
-        muteBgMusicButton.setMinimumHeight(0);
+        //// Click event listener for the toggle button
+        //// Sadly could not do it within the builder
 
-        //// Sets the x and y to the top right of the screen
-
-        muteBgMusicButton.setX(width - 75);
-        muteBgMusicButton.setY(-25);
-        muteBgMusicButton.setBackgroundColor(Color.TRANSPARENT);
-        muteBgMusicButton.setTextColor(Color.BLACK);
-
-        //// Changes the text when enabled to a headset sign
-        //// And when disabled to a mute sign
-        muteBgMusicButton.setTextOn("\uD83D\uDEAB");
-        muteBgMusicButton.setTextOff("\uD83C\uDFA7︎");
-        muteBgMusicButton.setChecked(false);
-
-        muteBgMusicButton.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        //// Adds the button to the new View
-        game.addView(muteBgMusicButton);
-
-        //// Sets the View to Pong
-        setContentView(game);
-
-        //// Adds in a click event for the music toggle button
         muteBgMusicButton.setOnClickListener(view -> {
             muteBgMusicButton.setChecked(muteBgMusicButton.isChecked());
 
@@ -80,6 +66,12 @@ public class PongActivity extends Activity {
                 mPongGame.getPongAudio().bg();
             }
         });
+
+        //// Adds the button to the new View
+        game.addView(muteBgMusicButton);
+
+        //// Sets the View to Pong
+        setContentView(game);
 
     }
 
