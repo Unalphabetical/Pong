@@ -24,6 +24,8 @@ public class PongAudio {
     private int mBopID = -1;
     private int mMissID = -1;
 
+    private boolean soundPaused = false;
+
     //// This is for playing the background music
 
     private MediaPlayer mediaPlayer;
@@ -125,6 +127,14 @@ public class PongAudio {
 
     public boolean isBgPaused(){
         return bgPaused;
+    }
+
+    public void setSoundPaused(boolean soundPaused) {
+        this.soundPaused = soundPaused;
+    }
+
+    public boolean isSoundPaused() {
+        return soundPaused;
     }
 
 }

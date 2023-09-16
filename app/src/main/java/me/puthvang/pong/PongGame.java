@@ -162,7 +162,7 @@ class PongGame extends SurfaceView implements Runnable{
             mBall.batBounce(mBat.getRect());
             mBall.increaseVelocity();
             mScore++;
-            pongAudio.beep();
+            if (!pongAudio.isSoundPaused()) pongAudio.beep();
         }
 
         // Has the ball hit the edge of the screen
@@ -173,7 +173,7 @@ class PongGame extends SurfaceView implements Runnable{
 
             mLives--;
 
-            pongAudio.miss();
+            if (!pongAudio.isSoundPaused()) pongAudio.miss();
 
             if(mLives == 0){
                 mPaused = true;
@@ -184,19 +184,19 @@ class PongGame extends SurfaceView implements Runnable{
         // Top
         if(mBall.getRect().top < 0){
             mBall.reverseYVelocity();
-            pongAudio.boop();
+            if (!pongAudio.isSoundPaused()) pongAudio.boop();
         }
 
         // Left
         if(mBall.getRect().left < 0){
             mBall.reverseXVelocity();
-            pongAudio.bop();
+            if (!pongAudio.isSoundPaused()) pongAudio.bop();
         }
 
         // Right
         if(mBall.getRect().right > mScreenX){
             mBall.reverseXVelocity();
-            pongAudio.bop();
+            if (!pongAudio.isSoundPaused()) pongAudio.bop();
         }
 
     }
@@ -232,6 +232,10 @@ class PongGame extends SurfaceView implements Runnable{
             //// Draw the music text
             mCanvas.drawText("Music: ",
                     getWidth() - 300, 70, mPaint);
+
+            //// Draw the music text
+            mCanvas.drawText("Sound: ",
+                    getWidth() - 300, 170, mPaint);
 
             if(DEBUGGING){
                 printDebuggingText();

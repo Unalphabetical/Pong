@@ -67,8 +67,30 @@ public class PongActivity extends Activity {
             }
         });
 
+        //// This builder is for the mute sound button
+        ToggleButton muteSoundButton = new CustomToggleButtonBuilder(this)
+                .minWidth(0).minHeight(0).minimumWidth(0).minimumHeight(0)
+                .x(width - 75).y(75)
+                .backgroundColor(Color.TRANSPARENT)
+                .textColor(Color.WHITE)
+                .textOn("\uD83D\uDD08")
+                .textOff("\uD83D\uDD0A")
+                .checked(false)
+                .layoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+                .build();
+
+        //// Click event listener for the mute sound button
+        muteSoundButton.setOnClickListener(view -> {
+            muteSoundButton.setChecked(muteSoundButton.isChecked());
+
+            //// Pause the sound if the speaker has no sound wave coming out
+            //// Plays the music if the speaker has sound wave coming out
+            mPongGame.getPongAudio().setSoundPaused(muteSoundButton.isChecked());
+        });
+
         //// Adds the button to the new View
         game.addView(muteBgMusicButton);
+        game.addView(muteSoundButton);
 
         //// Sets the View to Pong
         setContentView(game);
