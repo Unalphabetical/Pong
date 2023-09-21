@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ToggleButton;
 
 public class PongActivity extends Activity {
@@ -24,24 +23,21 @@ public class PongActivity extends Activity {
 
         mPongGame = new PongGame(this, size.x, size.y);
 
-        //// Create a new View window for the game
-
-        FrameLayout game = new FrameLayout(this);
+        //// Create a RelativeLayout View window for the game
+        RelativeLayout game = new RelativeLayout(this);
         game.addView(mPongGame);
 
-        //// Detect the width of the game
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int width = displayMetrics.widthPixels;
+        // Width and height detection
+        int width = size.x;
+        int height = size.y;
 
         //// This builder is to create the Toggle Button more easily
         //// and make it neater because the Game View was not
         //// made via xml files
-
         ToggleButton muteBgMusicButton = new CustomToggleButtonBuilder(this)
                 .minWidth(0).minHeight(0).minimumWidth(0).minimumHeight(0)
-                .x(width - 75).y(-25)
+                .textSize(height / 200)
+                .x((int) (width / 1.05)).y(-25)
                 .backgroundColor(Color.TRANSPARENT)
                 .textColor(Color.BLACK)
                 .textOn("\uD83D\uDEAB")
@@ -52,7 +48,6 @@ public class PongActivity extends Activity {
 
         //// Click event listener for the toggle button
         //// Sadly could not do it within the builder
-
         muteBgMusicButton.setOnClickListener(view -> {
             muteBgMusicButton.setChecked(muteBgMusicButton.isChecked());
 
@@ -70,7 +65,8 @@ public class PongActivity extends Activity {
         //// This builder is for the mute sound button
         ToggleButton muteSoundButton = new CustomToggleButtonBuilder(this)
                 .minWidth(0).minHeight(0).minimumWidth(0).minimumHeight(0)
-                .x(width - 75).y(75)
+                .textSize(height / 200)
+                .x(width - (width / 20)).y(50)
                 .backgroundColor(Color.TRANSPARENT)
                 .textColor(Color.WHITE)
                 .textOn("\uD83D\uDD08")

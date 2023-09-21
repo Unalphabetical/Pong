@@ -75,6 +75,11 @@ public class CustomToggleButtonBuilder {
         return this;
     }
 
+    public CustomToggleButtonBuilder textSize(int size){
+        this.toggleButton.setTextSize(size);
+        return this;
+    }
+
     public ToggleButton build(){
         return this.toggleButton;
     }

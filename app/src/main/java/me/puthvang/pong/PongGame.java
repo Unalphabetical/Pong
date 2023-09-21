@@ -227,15 +227,15 @@ class PongGame extends SurfaceView implements Runnable{
 
             // Draw the HUD
             mCanvas.drawText("Score: " + mScore + "   Lives: " + mLives,
-                    mFontMargin , mFontSize, mPaint);
+                    mFontMargin, mFontSize, mPaint);
 
             //// Draw the music text
             mCanvas.drawText("Music: ",
-                    getWidth() - 300, 70, mPaint);
+                    getWidth() / 1.275F, mFontSize, mPaint);
 
             //// Draw the music text
             mCanvas.drawText("Sound: ",
-                    getWidth() - 300, 170, mPaint);
+                    getWidth() / 1.283F, mFontSize * 2, mPaint);
 
             if(DEBUGGING){
                 printDebuggingText();
