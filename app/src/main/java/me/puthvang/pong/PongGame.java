@@ -70,6 +70,15 @@ class PongGame extends SurfaceView implements Runnable{
         // Margin is 1.5% (1/75th) of screen width
         mFontMargin = mScreenX / 75;
 
+        //// Initialize the objects that we have to use
+        //// i.e. the paint, ball, bat, and audio
+        initializeObjects();
+
+        // Everything is ready so start the game
+        startNewGame();
+    }
+
+    public void initializeObjects(){
         // Initialize the objects
         // ready for drawing with
         // getHolder is a method of SurfaceView
@@ -77,17 +86,13 @@ class PongGame extends SurfaceView implements Runnable{
         mPaint = new Paint();
 
         // Initialize the bat and ball
+        // Bat is in the constructor of Bat
+        // Ball is a separate class
         mBall = new Ball(mScreenX);
         mBat = new Bat(mScreenX, mScreenY);
 
-        //// Sets the color of the ball and bat
-        mBall.setColor(255, 25, 235, 150);
-        mBat.setColor(255, 255, 255, 255);
-
-        this.pongAudio = new PongAudio(context);
-
-        // Everything is ready so start the game
-        startNewGame();
+        //// Initialize the PongAudio class
+        pongAudio = new PongAudio(getContext());
     }
 
     // The player has just lost
@@ -125,7 +130,7 @@ class PongGame extends SurfaceView implements Runnable{
                 update();
                 // Now the bat and ball are in their new positions
                 // we can see if there have been any collisions
-                detectCollisions();
+                detectCollision();
             }
 
             // The movement has been handled and collisions
@@ -155,7 +160,17 @@ class PongGame extends SurfaceView implements Runnable{
         mBat.update(mFPS);
     }
 
-    private void detectCollisions(){
+    //// This method detects whether the ball has collided with the bat
+    //// After that, it calls the method to detect
+    //// if the ball collided with the wall
+    private void detectCollision(){
+        detectBatCollision();
+        detectWallCollision();
+    }
+
+    //// This method detects if the bat has collided with the ball
+    //// These methods are standalone to enable detecting them manually
+    private void detectBatCollision(){
         // Has the bat hit the ball?
         if(RectF.intersects(mBat.getRect(), mBall.getRect())) {
             // Realistic-ish bounce
@@ -164,7 +179,12 @@ class PongGame extends SurfaceView implements Runnable{
             mScore++;
             if (!pongAudio.isSoundPaused()) pongAudio.beep();
         }
+    }
 
+    //// This method detects if the ball has collided with the wall
+    //// It has been moved out of the method above to look cleaner
+    //// These methods are standalone to enable detecting them manually
+    private void detectWallCollision(){
         // Has the ball hit the edge of the screen
 
         // Bottom
@@ -198,7 +218,6 @@ class PongGame extends SurfaceView implements Runnable{
             mBall.reverseXVelocity();
             if (!pongAudio.isSoundPaused()) pongAudio.bop();
         }
-
     }
 
     // Draw the game objects and the HUD
@@ -211,40 +230,60 @@ class PongGame extends SurfaceView implements Runnable{
             // Fill the screen with a solid color
             mCanvas.drawColor(Color.argb(255, 26, 128, 182));
 
-            //// Color the ball and draw the ball
-            mPaint.setColor(mBall.getColor());
-            mCanvas.drawRect(mBall.getRect(), mPaint);
+            //// Draw the game objects like the ball and bat
+            drawGameObjects();
 
-            //// Color the bat and draw the bat
-            mPaint.setColor(mBat.getColor());
-            mCanvas.drawRect(mBat.getRect(), mPaint);
+            //// Draw the HUD text like the score and lives
+            drawHUDText();
 
-            //// Color the text
-            mPaint.setColor(Color.argb(255, 255, 255, 255));
+            //// Draw the debugging text if debugging is turned on
+            if(DEBUGGING) drawDebuggingText();
 
-            // Choose the font size
-            mPaint.setTextSize(mFontSize);
-
-            // Draw the HUD
-            mCanvas.drawText("Score: " + mScore + "   Lives: " + mLives,
-                    mFontMargin, mFontSize, mPaint);
-
-            //// Draw the music text
-            mCanvas.drawText("Music: ",
-                    getWidth() / 1.275F, mFontSize, mPaint);
-
-            //// Draw the music text
-            mCanvas.drawText("Sound: ",
-                    getWidth() / 1.283F, mFontSize * 2, mPaint);
-
-            if(DEBUGGING){
-                printDebuggingText();
-            }
             // Display the drawing on screen
             // unlockCanvasAndPost is a method of SurfaceView
             mOurHolder.unlockCanvasAndPost(mCanvas);
         }
 
+    }
+
+    //// This method draw and colors the required Game Objects
+    //// which are the ball and the bat.
+    public void drawGameObjects(){
+        //// Color the ball and draw the ball
+        mPaint.setColor(mBall.getColor());
+        mCanvas.drawRect(mBall.getRect(), mPaint);
+
+        //// Color the bat and draw the bat
+        mPaint.setColor(mBat.getColor());
+        mCanvas.drawRect(mBat.getRect(), mPaint);
+    }
+
+    public void drawHUDText(){
+        //// Color the text
+        mPaint.setColor(Color.argb(255, 255, 255, 255));
+
+        // Choose the font size
+        mPaint.setTextSize(mFontSize);
+
+        // Draw the HUD
+        mCanvas.drawText("Score: " + mScore + "   Lives: " + mLives,
+                mFontMargin, mFontSize, mPaint);
+
+        //// Draw the music text
+        mCanvas.drawText("Music: ",
+                getWidth() / 1.275F, mFontSize, mPaint);
+
+        //// Draw the music text
+        mCanvas.drawText("Sound: ",
+                getWidth() / 1.283F, mFontSize * 2, mPaint);
+    }
+
+    private void drawDebuggingText(){
+        int debugSize = mFontSize / 2;
+        int debugStart = 150;
+        mPaint.setTextSize(debugSize);
+        mCanvas.drawText("FPS: " + mFPS ,
+                10, debugStart + debugSize, mPaint);
     }
 
     // Handle all the screen touches
@@ -287,15 +326,6 @@ class PongGame extends SurfaceView implements Runnable{
                 break;
         }
         return true;
-    }
-
-    private void printDebuggingText(){
-        int debugSize = mFontSize / 2;
-        int debugStart = 150;
-        mPaint.setTextSize(debugSize);
-        mCanvas.drawText("FPS: " + mFPS ,
-                10, debugStart + debugSize, mPaint);
-
     }
 
     // This method is called by PongActivity
