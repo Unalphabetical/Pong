@@ -85,11 +85,13 @@ class PongGame extends SurfaceView implements Runnable{
         mOurHolder = getHolder();
         mPaint = new Paint();
 
-        // Initialize the bat and ball
-        // Bat is in the constructor of Bat
-        // Ball is a separate class
+        // Initialize the ball and bat
         mBall = new Ball(mScreenX);
         mBat = new Bat(mScreenX, mScreenY);
+
+        // Color the ball and bat
+        mBall.setColor(255, 25, 235, 150);
+        mBat.setColor(255, 255, 255, 255);
 
         //// Initialize the PongAudio class
         pongAudio = new PongAudio(getContext());
