@@ -32,6 +32,8 @@ public class PongAudio {
 
     private boolean bgPaused = false;
 
+    //// The constructor for the PongAudio class
+    //// which is required to initialize the sound and background music
     public PongAudio(Context context) {
         this.context = context;
 
@@ -97,42 +99,56 @@ public class PongAudio {
 
     }
 
+    //// These are the methods to play the sounds
+    //// The first one plays the beep sound
     public void beep() {
         mSP.play(mBeepID, 1, 1, 0, 0, 1);
     }
 
+    //// The second one plays the miss sound
     public void miss() {
         mSP.play(mMissID, 1, 1, 0, 0, 1);
     }
 
+    //// The third one plays the boop sound
     public void boop() {
         mSP.play(mBoopID, 1, 1, 0, 0, 1);
     }
 
+    //// The fourth one plays the bop sound
     public void bop() {
         mSP.play(mBopID, 1, 1, 0, 0, 1);
     }
 
+    //// The fifth one plays the background music
     public void bg() {
         this.mediaPlayer.start();
     }
 
+    //// This method pauses the media player
     public void bgPause() {
         this.mediaPlayer.pause();
     }
 
+    //// This method pauses the background music
+    //// It's required in order to show the mute icon on the toggle button correctly
     public void setBgPaused(boolean bgPaused) {
         this.bgPaused = bgPaused;
     }
 
+    //// This method checks if the background music is paused
+    //// This is required to show the unmute icon on the toggle button correctly
     public boolean isBgPaused(){
         return bgPaused;
     }
 
+    //// This method pauses the sound
     public void setSoundPaused(boolean soundPaused) {
         this.soundPaused = soundPaused;
     }
 
+    //// This method checks if the sound is paused
+    //// This is required to show the unmute icon on the toggle button correctly
     public boolean isSoundPaused() {
         return soundPaused;
     }

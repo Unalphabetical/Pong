@@ -89,7 +89,7 @@ class PongGame extends SurfaceView implements Runnable{
         mBall = new Ball(mScreenX);
         mBat = new Bat(mScreenX, mScreenY);
 
-        // Color the ball and bat
+        //// Color the ball and bat
         mBall.setColor(255, 25, 235, 150);
         mBat.setColor(255, 255, 255, 255);
 
@@ -222,7 +222,7 @@ class PongGame extends SurfaceView implements Runnable{
         }
     }
 
-    // Draw the game objects and the HUD
+    //// Draw the game objects and the HUD
     void draw() {
 
         if (mOurHolder.getSurface().isValid()) {
@@ -260,6 +260,8 @@ class PongGame extends SurfaceView implements Runnable{
         mCanvas.drawRect(mBat.getRect(), mPaint);
     }
 
+    //// This method draw and colors the required HUD Text
+    //// which are the score, lives, music, and sound.
     public void drawHUDText(){
         //// Color the text
         mPaint.setColor(Color.argb(255, 255, 255, 255));
@@ -280,6 +282,9 @@ class PongGame extends SurfaceView implements Runnable{
                 getWidth() / 1.283F, mFontSize * 2, mPaint);
     }
 
+    //// This method draw and colors the required Debugging Text
+    //// which is the FPS.
+    //// This method is only called if we are debugging.
     private void drawDebuggingText(){
         int debugSize = mFontSize / 2;
         int debugStart = 150;

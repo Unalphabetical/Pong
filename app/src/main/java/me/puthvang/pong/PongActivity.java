@@ -17,10 +17,12 @@ public class PongActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //// Get the pixel dimensions of the screen ready
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
 
+        //// Create an instance of the PongGame class
         mPongGame = new PongGame(this, size.x, size.y);
 
         //// Create a RelativeLayout View window for the game

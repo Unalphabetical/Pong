@@ -40,14 +40,17 @@ class Bat {
 
         // Configure the size of the bat based on
         // the screen resolution
+
         // One eighth the screen width
         mLength = mScreenX / 8;
+
         // One fortieth the screen height
         float height = sy / 40;
 
         // Configure the starting locaion of the bat
         // Roughly the middle horizontally
         mXCoord = mScreenX / 2;
+
         // The height of the bat
         // off of the bottom of the screen
         float mYCoord = sy - height;
@@ -88,11 +91,12 @@ class Bat {
             mXCoord = mXCoord + mBatSpeed / fps;
         }
 
-        // Stop the bat going off the screen
+        // Stop the bat going off the left side of the screen
         if(mXCoord < 0){
             mXCoord = 0;
         }
 
+        //// Stop the bat going off the right side of the screen
         if(mXCoord + mLength > mScreenX){
             mXCoord = mScreenX - mLength;
         }
@@ -103,10 +107,12 @@ class Bat {
         mRect.right = mXCoord + mLength;
     }
 
-    public void setColor(int a, int r, int g, int b) {
-        this.color = Color.argb(a, r, g, b);
+    //// Set the color of the bat via rgb values including Alpha
+    public void setColor(int alpha, int red, int green, int blue) {
+        this.color = Color.argb(alpha, red, green, blue);
     }
 
+    //// Get the color of the bat
     public int getColor() {
         return color;
     }

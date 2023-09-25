@@ -90,7 +90,7 @@ class Ball {
 
     void increaseVelocity(){
 
-        // increase the speed by 10%
+        // Increase the speed by 10%
         mXVelocity = mXVelocity * 1.1f;
         mYVelocity = mYVelocity * 1.1f;
     }
@@ -127,10 +127,12 @@ class Ball {
         reverseYVelocity();
     }
 
-    public void setColor(int a, int r, int g, int b) {
-        this.color = Color.argb(a, r, g, b);
+    //// Set the color of the ball via rgb values including Alpha
+    public void setColor(int alpha, int red, int green, int blue) {
+        this.color = Color.argb(alpha, red, green, blue);
     }
 
+    //// Get the color of the bat
     public int getColor() {
         return color;
     }
