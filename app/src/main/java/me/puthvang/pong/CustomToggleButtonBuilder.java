@@ -65,37 +65,37 @@ public class CustomToggleButtonBuilder {
     }
 
     //// Set the text of the button when it is on or checked
-    public CustomToggleButtonBuilder textOn(CharSequence textOn){
+    public CustomToggleButtonBuilder textOn(CharSequence textOn) {
         this.toggleButton.setTextOn(textOn);
         return this;
     }
 
     //// Set the text of the button when it is off or not checked
-    public CustomToggleButtonBuilder textOff(CharSequence textOff){
+    public CustomToggleButtonBuilder textOff(CharSequence textOff) {
         this.toggleButton.setTextOff(textOff);
         return this;
     }
 
     //// Set the toggle button to be checked or not
-    public CustomToggleButtonBuilder checked(boolean checked){
+    public CustomToggleButtonBuilder checked(boolean checked) {
         this.toggleButton.setChecked(checked);
         return this;
     }
 
     //// Set the layout parameters of the toggle button
-    public CustomToggleButtonBuilder layoutParams(ViewGroup.LayoutParams params){
+    public CustomToggleButtonBuilder layoutParams(ViewGroup.LayoutParams params) {
         this.toggleButton.setLayoutParams(params);
         return this;
     }
 
     //// Set the text size of the toggle button
-    public CustomToggleButtonBuilder textSize(int size){
+    public CustomToggleButtonBuilder textSize(int size) {
         this.toggleButton.setTextSize(size);
         return this;
     }
 
     //// Build the toggle button and return the toggle button object
-    public ToggleButton build(){
+    public ToggleButton build() {
         return this.toggleButton;
     }
     

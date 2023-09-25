@@ -9,11 +9,11 @@ class Ball {
     // They all have the m prefix
     // They are all private
     // because direct access is not required
-    private RectF mRect;
+    private final RectF mRect;
     private float mXVelocity;
     private float mYVelocity;
-    private float mBallWidth;
-    private float mBallHeight;
+    private final float mBallWidth;
+    private final float mBallHeight;
 
     //// This is the color variable for the ball
     private int color;
@@ -22,12 +22,12 @@ class Ball {
     // It is called when by the code:
     //  mBall = new Ball(mScreenX);
     // In the PongGame class
-    Ball(int screenX){
+    Ball(int screenX) {
 
         //// The ball is now 2% of the screen width
         //// because it was a bit too small on 1%
-        mBallWidth = screenX / 50;
-        mBallHeight = screenX / 50;
+        mBallWidth = screenX / 50F;
+        mBallHeight = screenX / 50F;
 
         // Initialize the RectF with 0, 0, 0, 0
         // We do it here because we only want to
@@ -39,13 +39,13 @@ class Ball {
 
 
     // Return a reference to mRect to PongGame
-    RectF getRect(){
+    RectF getRect() {
         return mRect;
     }
 
     // Update the ball position.
     // Called each frame/loop
-    void update(long fps){
+    void update(long fps) {
         // Move the ball based upon the
         // horizontal (mXVelocity) and
         // vertical(mYVelocity) speed
@@ -62,33 +62,33 @@ class Ball {
     }
 
     // Reverse the vertical direction of travel
-    void reverseYVelocity(){
+    void reverseYVelocity() {
         mYVelocity = -mYVelocity;
     }
 
     // Reverse the horizontal direction of travel
-    void reverseXVelocity(){
+    void reverseXVelocity() {
         mXVelocity = -mXVelocity;
     }
 
-    void reset(int x, int y){
+    void reset(int x, int y) {
 
         // Initialise the four points of
         // the rectangle which defines the ball
-        mRect.left = x / 2;
+        mRect.left = x / 2F;
         mRect.top = 0;
-        mRect.right = x / 2 + mBallWidth;
+        mRect.right = x / 2F + mBallWidth;
         mRect.bottom = mBallHeight;
 
         // How fast will the ball travel
         // You could vary this to suit
         // You could even increase it as the game progresses
         // to make it harder
-        mYVelocity = -(y / 3);
-        mXVelocity = (y / 3);
+        mYVelocity = -(y / 3F);
+        mXVelocity = (y / 3F);
     }
 
-    void increaseVelocity(){
+    void increaseVelocity() {
 
         // Increase the speed by 10%
         mXVelocity = mXVelocity * 1.1f;
@@ -97,7 +97,7 @@ class Ball {
 
     // Bounce the ball back based upon
     // whether it hits the left or right hand side
-    void batBounce(RectF batPosition){
+    void batBounce(RectF batPosition) {
 
         // Detect center of bat
         float batCenter = batPosition.left + (batPosition.width() / 2);

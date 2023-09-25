@@ -26,11 +26,11 @@ class PongGame extends SurfaceView implements Runnable{
     private final int MILLIS_IN_SECOND = 1000;
 
     // Holds the resolution of the screen
-    private int mScreenX;
-    private int mScreenY;
+    private final int mScreenX;
+    private final int mScreenY;
     // How big will the text be?
-    private int mFontSize;
-    private int mFontMargin;
+    private final int mFontSize;
+    private final int mFontMargin;
 
     // The game objects
     private Bat mBat;
@@ -61,7 +61,7 @@ class PongGame extends SurfaceView implements Runnable{
         super(context);
 
         // Initialize these two members/fields
-        // With the values passesd in as parameters
+        // With the values passes in as parameters
         mScreenX = x;
         mScreenY = y;
 
@@ -80,7 +80,7 @@ class PongGame extends SurfaceView implements Runnable{
 
     //// This method initializes the objects that we have to use
     //// such as the paint, ball, bat, and audio.
-    public void initializeObjects(){
+    public void initializeObjects() {
         // Initialize the objects
         // ready for drawing with
         // getHolder is a method of SurfaceView
@@ -101,7 +101,7 @@ class PongGame extends SurfaceView implements Runnable{
 
     // The player has just lost
     // or is starting their first game
-    private void startNewGame(){
+    private void startNewGame() {
 
         // Put the ball back to the starting position
         mBall.reset(mScreenX, mScreenY);
@@ -167,14 +167,14 @@ class PongGame extends SurfaceView implements Runnable{
     //// This method detects whether the ball has collided with the bat
     //// After that, it calls the method to detect
     //// if the ball collided with the wall
-    private void detectCollision(){
+    private void detectCollision() {
         detectBatCollision();
         detectWallCollision();
     }
 
     //// This method detects if the bat has collided with the ball
     //// These methods are standalone to enable detecting them manually
-    private void detectBatCollision(){
+    private void detectBatCollision() {
         // Has the bat hit the ball?
         if(RectF.intersects(mBat.getRect(), mBall.getRect())) {
             // Realistic-ish bounce
@@ -188,7 +188,7 @@ class PongGame extends SurfaceView implements Runnable{
     //// This method detects if the ball has collided with the wall
     //// It has been moved out of the method above to look cleaner
     //// These methods are standalone to enable detecting them manually
-    private void detectWallCollision(){
+    private void detectWallCollision() {
         // Has the ball hit the edge of the screen
 
         // Bottom
@@ -252,7 +252,7 @@ class PongGame extends SurfaceView implements Runnable{
 
     //// This method draw and colors the required Game Objects
     //// which are the ball and the bat.
-    public void drawGameObjects(){
+    public void drawGameObjects() {
         //// Color the ball and draw the ball
         mPaint.setColor(mBall.getColor());
         mCanvas.drawRect(mBall.getRect(), mPaint);
@@ -264,7 +264,7 @@ class PongGame extends SurfaceView implements Runnable{
 
     //// This method draw and colors the required HUD Text
     //// which are the score, lives, music, and sound.
-    public void drawHUDText(){
+    public void drawHUDText() {
         //// Color the text
         mPaint.setColor(Color.argb(255, 255, 255, 255));
 
@@ -287,7 +287,7 @@ class PongGame extends SurfaceView implements Runnable{
     //// This method draw and colors the required Debugging Text
     //// which is the FPS.
     //// This method is only called if we are debugging.
-    private void drawDebuggingText(){
+    private void drawDebuggingText() {
         int debugSize = mFontSize / 2;
         int debugStart = 150;
         mPaint.setTextSize(debugSize);
@@ -319,7 +319,7 @@ class PongGame extends SurfaceView implements Runnable{
                 mPaused = false;
 
                 // Where did the touch happen
-                if(motionEvent.getX() > mScreenX / 2){
+                if(motionEvent.getX() > mScreenX / 2F){
                     // On the right hand side
                     mBat.setMovementState(mBat.RIGHT);
                 }

@@ -9,11 +9,11 @@ class Bat {
     // They all have the m prefix
     // They are all private
     // because direct access is not required
-    private RectF mRect;
-    private float mLength;
+    private final RectF mRect;
+    private final float mLength;
     private float mXCoord;
-    private float mBatSpeed;
-    private int mScreenX;
+    private final float mBatSpeed;
+    private final int mScreenX;
 
     //// This is the color variable for the bat
     private int color;
@@ -31,7 +31,7 @@ class Bat {
     // Starting with STOPPED
     private int mBatMoving = STOPPED;
 
-    Bat(int sx, int sy){
+    Bat(int sx, int sy) {
 
         // Bat needs to know the screen
         // horizontal resolution
@@ -42,14 +42,14 @@ class Bat {
         // the screen resolution
 
         // One eighth the screen width
-        mLength = mScreenX / 8;
+        mLength = mScreenX / 8F;
 
         // One fortieth the screen height
-        float height = sy / 40;
+        float height = sy / 40F;
 
         // Configure the starting locaion of the bat
         // Roughly the middle horizontally
-        mXCoord = mScreenX / 2;
+        mXCoord = mScreenX / 2F;
 
         // The height of the bat
         // off of the bottom of the screen
@@ -67,37 +67,37 @@ class Bat {
     }
 
     // Return a reference to the mRect object
-    RectF getRect(){
+    RectF getRect() {
         return mRect;
     }
 
     // Update the movement state passed
     // in by the onTouchEvent method
-    void setMovementState(int state){
+    void setMovementState(int state) {
         mBatMoving = state;
     }
 
 
     // Update the bat- Called each frame/loop
-    void update(long fps){
+    void update(long fps) {
 
         // Move the bat based on the mBatMoving variable
         // and the speed of the previous frame
-        if(mBatMoving == LEFT){
+        if(mBatMoving == LEFT) {
             mXCoord = mXCoord - mBatSpeed / fps;
         }
 
-        if(mBatMoving == RIGHT){
+        if(mBatMoving == RIGHT) {
             mXCoord = mXCoord + mBatSpeed / fps;
         }
 
         // Stop the bat going off the left side of the screen
-        if(mXCoord < 0){
+        if(mXCoord < 0) {
             mXCoord = 0;
         }
 
         //// Stop the bat going off the right side of the screen
-        if(mXCoord + mLength > mScreenX){
+        if(mXCoord + mLength > mScreenX) {
             mXCoord = mScreenX - mLength;
         }
 
