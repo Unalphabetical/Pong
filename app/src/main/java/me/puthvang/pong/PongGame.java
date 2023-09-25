@@ -293,6 +293,14 @@ class PongGame extends SurfaceView implements Runnable{
         mPaint.setTextSize(debugSize);
         mCanvas.drawText("FPS: " + mFPS ,
                 10, debugStart + debugSize, mPaint);
+
+        mPaint.setTextSize(debugSize + 10);
+
+        mCanvas.drawText("Puth Vang",
+                10, debugStart + debugSize + 80, mPaint);
+
+        mCanvas.drawText("Samuel Caus",
+                10, debugStart + debugSize + 150, mPaint);
     }
 
     // Handle all the screen touches
