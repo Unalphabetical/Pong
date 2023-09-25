@@ -78,6 +78,8 @@ class PongGame extends SurfaceView implements Runnable{
         startNewGame();
     }
 
+    //// This method initializes the objects that we have to use
+    //// such as the paint, ball, bat, and audio.
     public void initializeObjects(){
         // Initialize the objects
         // ready for drawing with
